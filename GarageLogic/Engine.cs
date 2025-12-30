@@ -30,5 +30,4 @@ public abstract class Engine
     {
         return $"Energy Percentage: {EnergyPercentage:F1}%";
     }
-
 }

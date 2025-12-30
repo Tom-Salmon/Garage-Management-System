@@ -1,15 +1,16 @@
 using System.Text;
 
-public class Truck : Vehicle
+public class FuelTruck : Vehicle
 {
     private const int k_NumberOfWheels = 14;
     private const float k_MaxAirPressure = 26f;
     private bool m_IsCarryingHazardousMaterials;
     private float m_CargoVolume;
 
-    public Truck(string i_ModelName, string i_LicenseNumber, Engine i_Engine) : base(i_ModelName, i_LicenseNumber)
+    public FuelTruck(string i_ModelName, string i_LicenseNumber) : base(i_ModelName, i_LicenseNumber)
     {
-        m_Engine = i_Engine;
+        m_Engine = new FuelEngine(eFuelType.Soler, 140f);
+        
         for (int i = 0; i < k_NumberOfWheels; i++)
         {
             m_Wheels.Add(new Wheel(k_MaxAirPressure));

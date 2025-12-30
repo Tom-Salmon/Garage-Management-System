@@ -1,14 +1,13 @@
 using System.Text;
-public class Motorcycle : Vehicle
+public abstract class Motorcycle : Vehicle
 {
-    private const int k_NumberOfWheels = 2;
-    private const float k_MaxAirPressure = 31f;
-    private eLicenseType m_LicenseType;
-    private int m_EngineVolume;
+    protected const int k_NumberOfWheels = 2;
+    protected const float k_MaxAirPressure = 31f;
+    protected eLicenseType m_LicenseType;
+    protected int m_EngineVolume;
 
-    public Motorcycle(string i_ModelName, string i_LicenseNumber, Engine i_Engine) : base(i_ModelName, i_LicenseNumber)
-    {
-        m_Engine = i_Engine;
+    public Motorcycle(string i_ModelName, string i_LicenseNumber) : base(i_ModelName, i_LicenseNumber)
+    {        
         for (int i = 0; i < k_NumberOfWheels; i++)
         {
             m_Wheels.Add(new Wheel(k_MaxAirPressure));
