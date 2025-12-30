@@ -1,0 +1,13 @@
+FuelMotorcycle,23-956-41,Triumph-Street,62,Continental,29,Sara,053-2468135,A2,675
+FuelMotorcycle,47-183-69,Aprilia-Tuono,78,Dunlop,30,Ron,053-2468136,AA,955
+ElectricMotorcycle,85-429-17,Energica-Ego,91,Michelin,28,Chen,053-2468137,A1,0
+ElectricMotorcycle,61-732-94,Super-Soco,53,Bridgestone,29,Noa,053-2468138,B,0
+FuelCar,19-674-52,Ford-Focus,69,Goodyear,29,Yoni,053-2468139,Blue,4
+FuelCar,74-381-26,VW-Golf,38,Hankook,30,Shira,053-2468140,Green,5
+ElectricCar,32-815-49,Hyundai-Ioniq,82,Pirelli,29,Kobi,053-2468141,White,4
+ElectricCar,98-247-63,BYD-Atto,76,Continental,30,Roni,053-2468142,Black,5
+Truck,56-492-81,Mercedes-Actros,47,Michelin,24,Doron,053-2468143,false,28.3
+Truck,41-728-15,DAF-XF,89,Bridgestone,25,Hila,053-2468144,true,21.7
+*****Remove this line and below:
+THE FORMAT IS:
+VehicleType, LicensePlate, ModelName, EnergyPercentage, TierModel, CurrAirPressure, OwnerName, OwnerPhone, [SPECIFIC VEHICLE PROPERTIES]
