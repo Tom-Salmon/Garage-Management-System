@@ -1,7 +1,7 @@
 public abstract class Engine
 {
     protected float m_CurrentEnergy;
-    protected float m_MaxEnergy;
+    protected readonly float m_MaxEnergy;
     public float EnergyPercentage
     {
         get
@@ -13,10 +13,9 @@ public abstract class Engine
     public Engine(float i_MaxEnergy)
     {
         m_MaxEnergy = i_MaxEnergy;
-        m_CurrentEnergy = 0;
     }
     
-    public void AddEnergy(float i_EnergyToAdd)
+    protected void EnergyAddition(float i_EnergyToAdd)
     {
         if(m_CurrentEnergy + i_EnergyToAdd > m_MaxEnergy)
         {

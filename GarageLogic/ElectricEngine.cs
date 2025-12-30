@@ -6,6 +6,6 @@ public class ElectricEngine : Engine
 
     public void Recharge(float i_HoursToAdd)
     {
-        AddEnergy(i_HoursToAdd);
+        EnergyAddition(i_HoursToAdd);
     }
 }

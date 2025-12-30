@@ -1,4 +1,3 @@
-using System.Text;
 public class FuelEngine : Engine
 {
     private eFuelType m_FuelType;
@@ -14,7 +13,7 @@ public class FuelEngine : Engine
             throw new ArgumentException($"Incorrect fuel type. Expected: {m_FuelType}, Received: {i_FuelType}");
         }
 
-        AddEnergy(i_FuelToAdd);
+        EnergyAddition(i_FuelToAdd);
     }
 
     public override string ToString()
