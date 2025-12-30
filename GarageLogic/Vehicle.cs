@@ -77,7 +77,6 @@ public abstract class Vehicle
         return vehicleInfo.ToString();
     }
 
-
     public abstract Dictionary<string, Type> GetVehicleSpecificParameters();
 
     public abstract void SetVehicleSpecificParameters(Dictionary<string, object> i_VehicleParameters);
