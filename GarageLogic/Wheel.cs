@@ -28,11 +28,9 @@ public class Wheel
         }
     }
 
-    public Wheel(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
+    public Wheel(float i_MaxAirPressure)
     {
-        m_ManufacturerName = i_ManufacturerName;
         m_MaxAirPressure = i_MaxAirPressure;
-        m_CurrentAirPressure = i_CurrentAirPressure;
     }
 
     public void Inflate(float i_AirToAdd)
