@@ -1,3 +1,4 @@
+using System.Text;
 public class FuelEngine : Engine
 {
     private eFuelType m_FuelType;
@@ -14,5 +15,10 @@ public class FuelEngine : Engine
         }
 
         AddEnergy(i_FuelToAdd);
+    }
+
+    public override string ToString()
+    {
+        return $"{base.ToString()}, Fuel Type: {m_FuelType}";
     }
 }

@@ -1,5 +1,3 @@
-using System.Diagnostics.Contracts;
-
 public abstract class Engine
 {
     protected float m_CurrentEnergy;
@@ -27,5 +25,9 @@ public abstract class Engine
         m_CurrentEnergy += i_EnergyToAdd;
     }
 
+    public override string ToString()
+    {
+        return $"Energy Percentage: {EnergyPercentage:F1}%";
+    }
 
 }

@@ -1,3 +1,5 @@
+using System.Text;
+
 public abstract class Vehicle
 {
     protected readonly string m_ModelName;
@@ -58,13 +60,23 @@ public abstract class Vehicle
             }
         }
     }
-/*
+
     public override string ToString()
     {
-        string vehicleInfo = string.Empty;
-        //continue here!
+        StringBuilder vehicleInfo = new StringBuilder();
+        vehicleInfo.AppendLine($"License Number: {m_LicenseNumber}");
+        vehicleInfo.AppendLine($"Model Name: {m_ModelName}");
+        vehicleInfo.AppendLine("Engine Info:");
+        vehicleInfo.AppendLine(m_Engine.ToString());
+        vehicleInfo.AppendLine("Wheels Info:");
+        int wheelIndex = 1;
+        foreach (Wheel wheel in m_Wheels)
+        {
+            vehicleInfo.AppendLine($"{wheelIndex++}. {wheel}");
+        }
+        return vehicleInfo.ToString();
     }
-*/
+
 
     public abstract Dictionary<string, Type> GetVehicleSpecificParameters();
 
