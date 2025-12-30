@@ -18,8 +18,10 @@ public class Car : Vehicle
     public override Dictionary<string, Type> GetVehicleSpecificParameters()//TODO
     {
         Dictionary<string, Type> parameters = new Dictionary<string, Type>();
+
         parameters.Add("Color", typeof(eColor));
         parameters.Add("Number of Doors", typeof(eNumberOfDoors));
+
         return parameters;
     }
     public override void SetVehicleSpecificParameters(Dictionary<string, object> i_VehicleParameters)//TODO
@@ -31,10 +33,11 @@ public class Car : Vehicle
     public override string ToString()
     {
         StringBuilder carInfo = new StringBuilder();
+
         carInfo.AppendLine(base.ToString());
         carInfo.AppendLine($"Car Color: {m_Color}");
         carInfo.AppendLine($"Number of Doors: {(int)m_NumberOfDoors}");
+
         return carInfo.ToString();
     }
-
 }

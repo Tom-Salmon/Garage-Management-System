@@ -6,6 +6,7 @@ public abstract class Vehicle
     protected readonly string m_LicenseNumber;
     protected List<Wheel> m_Wheels;
     protected Engine m_Engine;
+
     public float EnergyPercentage
     {
         get 
@@ -64,6 +65,7 @@ public abstract class Vehicle
     public override string ToString()
     {
         StringBuilder vehicleInfo = new StringBuilder();
+
         vehicleInfo.AppendLine($"License Number: {m_LicenseNumber}");
         vehicleInfo.AppendLine($"Model Name: {m_ModelName}");
         vehicleInfo.AppendLine("Engine Info:");
@@ -74,6 +76,7 @@ public abstract class Vehicle
         {
             vehicleInfo.AppendLine($"{wheelIndex++}. {wheel}");
         }
+        
         return vehicleInfo.ToString();
     }
 

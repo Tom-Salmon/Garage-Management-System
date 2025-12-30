@@ -15,6 +15,7 @@ public abstract class Engine
         m_MaxEnergy = i_MaxEnergy;
         m_CurrentEnergy = 0;
     }
+    
     public void AddEnergy(float i_EnergyToAdd)
     {
         if(m_CurrentEnergy + i_EnergyToAdd > m_MaxEnergy)
