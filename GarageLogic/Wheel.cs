@@ -2,13 +2,17 @@ public class Wheel
 {
     private string m_ManufacturerName;
     private float m_CurrentAirPressure;
-    private float m_MaxAirPressure;
+    private readonly float m_MaxAirPressure;
 
     public string ManufacturerName
     {
         get
         {
             return m_ManufacturerName;
+        }
+        set
+        {
+            m_ManufacturerName = value;
         }
     }
 
@@ -17,6 +21,10 @@ public class Wheel
         get
         {
             return m_CurrentAirPressure;
+        }
+        set
+        {
+            m_CurrentAirPressure = value;
         }
     }
 

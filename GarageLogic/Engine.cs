@@ -8,6 +8,17 @@ public abstract class Engine
         {
             return (m_CurrentEnergy / m_MaxEnergy) * 100;
         }
+    }  
+    public float CurrentEnergy
+    {
+        get
+        {
+            return m_CurrentEnergy;
+        }
+        set
+        {
+            m_CurrentEnergy = value;
+        }
     }
 
     public Engine(float i_MaxEnergy)
