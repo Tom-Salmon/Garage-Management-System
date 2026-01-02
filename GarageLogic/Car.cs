@@ -17,7 +17,7 @@ public abstract class Car : Vehicle
     public override Dictionary<string, Type> GetVehicleSpecificParameters()//TODO
     {
         Dictionary<string, Type> parameters = new Dictionary<string, Type>();
-
+        parameters = base.GetVehicleSpecificParameters();
         parameters.Add("Color", typeof(eColor));
         parameters.Add("Number of Doors", typeof(eNumberOfDoors));
 
@@ -25,6 +25,7 @@ public abstract class Car : Vehicle
     }
     public override void SetVehicleSpecificParameters(Dictionary<string, object> i_VehicleParameters)//TODO
     {
+        base.SetVehicleSpecificParameters(i_VehicleParameters);
         m_Color = (eColor)i_VehicleParameters["Color"];
         m_NumberOfDoors = (eNumberOfDoors)i_VehicleParameters["Number of Doors"];
     }

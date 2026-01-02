@@ -80,8 +80,25 @@ public abstract class Vehicle
         return vehicleInfo.ToString();
     }
 
-    public abstract Dictionary<string, Type> GetVehicleSpecificParameters();
+    public virtual Dictionary<string, Type> GetVehicleSpecificParameters()
+    {
+        Dictionary<string, Type> parameters = new Dictionary<string, Type>();
 
-    public abstract void SetVehicleSpecificParameters(Dictionary<string, object> i_VehicleParameters);
+        parameters.Add("Energy Percentage", typeof(float));
+        parameters.Add("Tier Model", typeof(string));
+        parameters.Add("Current Air Pressure", typeof(float));
+
+        return parameters;
+    }
+
+    public virtual void SetVehicleSpecificParameters(Dictionary<string, object> i_VehicleParameters)
+    {
+        m_Engine.CurrentEnergy = (float)i_VehicleParameters["Energy Percentage"];
+        foreach (Wheel wheel in m_Wheels)
+        {
+            wheel.CurrentAirPressure = (float)i_VehicleParameters["Current Air Pressure"];
+            wheel.ManufacturerName = (string)i_VehicleParameters["Tier Model"];
+        }
+    }
 
 }
