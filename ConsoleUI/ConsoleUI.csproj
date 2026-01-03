@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GarageLogic\GarageLogic.csproj" />
+    <ProjectReference Include="..\GarageLogic\Ex03.GarageLogic.csproj" />
     <None Include="App.config" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
