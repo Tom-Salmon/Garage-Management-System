@@ -24,7 +24,14 @@ public class Wheel
         }
         set
         {
-            m_CurrentAirPressure = value;
+            if (value < 0 || value > m_MaxAirPressure)
+            {
+                throw new ValueRangeException(0, m_MaxAirPressure);
+            }
+            else
+            {
+                m_CurrentAirPressure = value;
+            }
         }
     }
 

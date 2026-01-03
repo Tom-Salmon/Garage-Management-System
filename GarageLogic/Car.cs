@@ -14,20 +14,26 @@ public abstract class Car : Vehicle
         }
     }
 
-    public override Dictionary<string, Type> GetVehicleSpecificParameters()//TODO
+    public override Dictionary<string, Type> GetVehicleSpecificParameters()
     {
-        Dictionary<string, Type> parameters = new Dictionary<string, Type>();
-        parameters = base.GetVehicleSpecificParameters();
+        Dictionary<string, Type> parameters = base.GetVehicleSpecificParameters();
         parameters.Add("Color", typeof(eColor));
         parameters.Add("Number of Doors", typeof(eNumberOfDoors));
 
         return parameters;
     }
-    public override void SetVehicleSpecificParameters(Dictionary<string, object> i_VehicleParameters)//TODO
+    public override void SetVehicleSpecificParameters(Dictionary<string, object> i_VehicleParameters)
     {
         base.SetVehicleSpecificParameters(i_VehicleParameters);
-        m_Color = (eColor)i_VehicleParameters["Color"];
-        m_NumberOfDoors = (eNumberOfDoors)i_VehicleParameters["Number of Doors"];
+        try
+        {
+            m_Color = (eColor)Enum.Parse(typeof(eColor), i_VehicleParameters["Color"].ToString());
+            m_NumberOfDoors = (eNumberOfDoors)Enum.Parse(typeof(eNumberOfDoors), i_VehicleParameters["Number of Doors"].ToString());
+        }
+        catch (ArgumentException)
+        {
+            throw new FormatException("One or more of the properties is not valid.");
+        }
     }
 
     public override string ToString()

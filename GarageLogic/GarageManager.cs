@@ -23,9 +23,13 @@ public class GarageManager
 		}	
 	}
 	
-	public bool AddVehicle(string i_LicenseNumber, string i_ModelName, string i_VehicleType, string i_OwnerName, string i_OwnerPhone, out Vehicle o_NewVehicle)///void?
+	public bool IsVehicleInGarage(string i_LicenseNumber)
 	{
-		
+		return m_GarageVehicles.ContainsKey(i_LicenseNumber);
+    }
+
+    public bool AddVehicle(string i_LicenseNumber, string i_ModelName, string i_VehicleType, string i_OwnerName, string i_OwnerPhone, out Vehicle o_NewVehicle)///void?
+	{
 		bool isExists = m_GarageVehicles.TryGetValue(i_LicenseNumber,out GarageVehicle vehicleToInsert);
 		
 		if(isExists)
