@@ -1,7 +1,11 @@
-﻿public enum eVehicleStatus
+﻿namespace Ex03.GarageLogic
 {
-    InRepair = 1,
-    Repaired = 2,
-    Paid = 3
+	public enum eVehicleStatus
+	{
+	    InRepair = 1,
+	    Repaired = 2,
+	    Paid = 3
+	}
 }
+
 

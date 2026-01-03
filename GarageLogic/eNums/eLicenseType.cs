@@ -1,7 +1,10 @@
-public enum eLicenseType
+namespace Ex03.GarageLogic
 {
-    A1 = 1,
-    A2 = 2,
-    AA = 3,
-    B = 4
+	public enum eLicenseType
+	{
+	    A1 = 1,
+	    A2 = 2,
+	    AA = 3,
+	    B = 4
+	}
 }

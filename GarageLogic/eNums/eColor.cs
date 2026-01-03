@@ -1,7 +1,10 @@
-public enum eColor
+namespace Ex03.GarageLogic
 {
-    Blue = 1,
-    Green = 2,
-    White = 3,
-    Black = 4
+	public enum eColor
+	{
+	    Blue = 1,
+	    Green = 2,
+	    White = 3,
+	    Black = 4
+	}
 }

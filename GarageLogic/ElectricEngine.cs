@@ -1,11 +1,14 @@
-public class ElectricEngine : Engine
+namespace Ex03.GarageLogic
 {
-    public ElectricEngine(float i_MaxBatteryCapacity) : base(i_MaxBatteryCapacity)
-    {
-    }
+	public class ElectricEngine : Engine
+	{
+	    public ElectricEngine(float i_MaxBatteryCapacity) : base(i_MaxBatteryCapacity)
+	    {
+	    }
 
-    public void Recharge(float i_HoursToAdd)
-    {
-        EnergyAddition(i_HoursToAdd);
-    }
+	    public void Recharge(float i_HoursToAdd)
+	    {
+	        EnergyAddition(i_HoursToAdd);
+	    }
+	}
 }
