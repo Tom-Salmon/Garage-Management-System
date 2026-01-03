@@ -19,7 +19,7 @@ public class FuelTruck : Vehicle
 
     public override Dictionary<string, Type> GetVehicleSpecificParameters()
     {
-        Dictionary<string, Type> parameters = new Dictionary<string, Type>();
+        Dictionary<string, Type> parameters = base.GetVehicleSpecificParameters();
 
         parameters.Add("Is Carrying Hazardous Materials", typeof(bool));
         parameters.Add("Cargo Volume", typeof(float));
@@ -29,8 +29,17 @@ public class FuelTruck : Vehicle
 
     public override void SetVehicleSpecificParameters(Dictionary<string, object> i_VehicleParameters)
     {
-        m_IsCarryingHazardousMaterials = (bool)i_VehicleParameters["Is Carrying Hazardous Materials"];
-        m_CargoVolume = (float)i_VehicleParameters["Cargo Volume"];
+        base.SetVehicleSpecificParameters(i_VehicleParameters);
+        try
+        { 
+            string hazardousInput = i_VehicleParameters["Is Carrying Hazardous Materials"].ToString();
+            m_IsCarryingHazardousMaterials = bool.Parse(hazardousInput);
+            m_CargoVolume = float.Parse(i_VehicleParameters["Cargo Volume"].ToString());
+        }
+        catch (FormatException)
+        {
+            throw new FormatException("Invalid input: Hazardous materials must be 'True'/'False' and Cargo Volume must be a number.");
+        }
     }
 
     public override string ToString()

@@ -17,7 +17,21 @@ public abstract class Engine
         }
         set
         {
-            m_CurrentEnergy = value;
+            if (value < 0 || value > m_MaxEnergy)
+            {
+                throw new ValueRangeException(0, m_MaxEnergy);
+            }
+            else
+            {
+                m_CurrentEnergy = value;
+            }
+        }
+    }
+    public float MaxEnergy
+    {
+        get
+        {
+            return m_MaxEnergy;
         }
     }
 

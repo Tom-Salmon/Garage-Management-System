@@ -14,7 +14,7 @@ public abstract class Vehicle
             return Engine.EnergyPercentage; 
         }
     }
-    public string LicenceNumber
+    public string LicenseNumber
     {
         get 
         { 
@@ -85,7 +85,7 @@ public abstract class Vehicle
         Dictionary<string, Type> parameters = new Dictionary<string, Type>();
 
         parameters.Add("Energy Percentage", typeof(float));
-        parameters.Add("Tier Model", typeof(string));
+        parameters.Add("Tire Model", typeof(string));
         parameters.Add("Current Air Pressure", typeof(float));
 
         return parameters;
@@ -93,12 +93,23 @@ public abstract class Vehicle
 
     public virtual void SetVehicleSpecificParameters(Dictionary<string, object> i_VehicleParameters)
     {
-        m_Engine.CurrentEnergy = (float)i_VehicleParameters["Energy Percentage"];
-        foreach (Wheel wheel in m_Wheels)
+        try
         {
-            wheel.CurrentAirPressure = (float)i_VehicleParameters["Current Air Pressure"];
-            wheel.ManufacturerName = (string)i_VehicleParameters["Tier Model"];
+            float energyPercent = float.Parse(i_VehicleParameters["Energy Percentage"].ToString());
+            float airPressure = float.Parse(i_VehicleParameters["Current Air Pressure"].ToString());
+            string tireManufacturer = i_VehicleParameters["Tire Model"].ToString();
+
+            m_Engine.CurrentEnergy = (energyPercent / 100f) * m_Engine.MaxEnergy;
+
+            foreach (Wheel wheel in m_Wheels)
+            {
+                wheel.ManufacturerName = tireManufacturer;
+                wheel.CurrentAirPressure = airPressure;
+            }
+        }
+        catch (FormatException)
+        {
+            throw new FormatException("Invalid input format. Please enter numerical values where required.");
         }
     }
-
 }

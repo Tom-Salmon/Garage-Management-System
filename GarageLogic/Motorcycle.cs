@@ -16,7 +16,7 @@ public abstract class Motorcycle : Vehicle
 
     public override Dictionary<string, Type> GetVehicleSpecificParameters()
     {
-        Dictionary<string, Type> parameters = new Dictionary<string, Type>();
+        Dictionary<string, Type> parameters = base.GetVehicleSpecificParameters();
 
         parameters.Add("License Type", typeof(eLicenseType));
         parameters.Add("Engine Volume", typeof(int));
@@ -26,8 +26,20 @@ public abstract class Motorcycle : Vehicle
 
     public override void SetVehicleSpecificParameters(Dictionary<string, object> i_VehicleParameters)
     {
-        m_LicenseType = (eLicenseType)i_VehicleParameters["License Type"];
-        m_EngineVolume = (int)i_VehicleParameters["Engine Volume"];
+        base.SetVehicleSpecificParameters(i_VehicleParameters);
+        try
+        {
+            m_LicenseType = (eLicenseType)Enum.Parse(typeof(eLicenseType), i_VehicleParameters["License Type"].ToString());
+            m_EngineVolume = int.Parse(i_VehicleParameters["Engine Volume"].ToString());
+        }
+        catch (ArgumentException)
+        {
+            throw new FormatException("The provided License Type is not valid.");
+        }
+        catch (FormatException)
+        {
+            throw new FormatException("Engine Volume must be a valid whole number.");
+        }
     }
 
     public override string ToString()
