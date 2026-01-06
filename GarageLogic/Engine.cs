@@ -44,7 +44,7 @@ namespace Ex03.GarageLogic
 	    
 	    protected void EnergyAddition(float i_EnergyToAdd)
 	    {
-	        if(m_CurrentEnergy + i_EnergyToAdd > m_MaxEnergy)
+	        if (m_CurrentEnergy + i_EnergyToAdd > m_MaxEnergy)
 	        {
 	            throw new ValueRangeException(0, m_MaxEnergy - m_CurrentEnergy);
 	        }
@@ -54,7 +54,7 @@ namespace Ex03.GarageLogic
 
 	    public override string ToString()
 	    {
-	        return $"Energy Percentage: {EnergyPercentage:F1}%";
+	        return $"Energy Percentage: {EnergyPercentage:F1}% ({CurrentEnergy} / {MaxEnergy})";
 	    }
 	}
 }

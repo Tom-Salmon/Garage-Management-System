@@ -10,7 +10,7 @@ namespace Ex03.GarageLogic
 
 	    public void Refuel(float i_FuelToAdd, eFuelType i_FuelType)
 	    {
-	        if(i_FuelType != m_FuelType)
+	        if (i_FuelType != m_FuelType)
 	        {
 	            throw new ArgumentException($"Incorrect fuel type. Expected: {m_FuelType}, Received: {i_FuelType}");
 	        }

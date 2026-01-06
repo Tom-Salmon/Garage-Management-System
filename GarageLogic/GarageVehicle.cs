@@ -45,7 +45,6 @@ namespace Ex03.GarageLogic
 			garageVehicleInfo.AppendLine($"Owner Name: {m_OwnerName}");
 			garageVehicleInfo.AppendLine($"Phone Number: {m_OwnerPhone}");
 			garageVehicleInfo.AppendLine($"Vehicle Status: {m_VehicleStatus}");
-			garageVehicleInfo.AppendLine("Vehicle Info:");
 			garageVehicleInfo.AppendLine(m_Vehicle.ToString());
 
 			return garageVehicleInfo.ToString();

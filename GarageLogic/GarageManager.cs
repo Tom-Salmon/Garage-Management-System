@@ -80,7 +80,7 @@ namespace Ex03.GarageLogic
 		public string GetVehicleInfo(string i_LicenseNumber)
 		{
 			GarageVehicle requestedVehicle = getVehicleFromGarage(i_LicenseNumber);
-
+			
 			return requestedVehicle.ToString();
 		}
 

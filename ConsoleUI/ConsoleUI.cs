@@ -70,6 +70,34 @@ namespace Ex03.ConsoleUI
             }
         }
 
+        private string getEnumSelection(Type i_EnumType, string i_Message)
+        {
+            if (!i_EnumType.IsEnum)
+            {
+                throw new ArgumentException("Type must be an enum");
+            }
+            
+            Console.WriteLine(i_Message);
+            string[] options = Enum.GetNames(i_EnumType);
+
+            while (true)
+            {
+                for (int i = 0; i < options.Length; i++)
+                {
+                    Console.WriteLine(string.Format("{0}. {1}", i + 1, options[i]));
+                }
+
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out int choice) && choice >= 1 && choice <= options.Length)
+                {
+                    return options[choice - 1];
+                }
+
+                Console.WriteLine("Invalid selection. Please try again.");
+            }
+        }
+
         private void loadVehiclesFromDB()
         {
             try
@@ -83,11 +111,11 @@ namespace Ex03.ConsoleUI
                     {
                         string[] vehicleData = line.Split(',');
                         string vehicleType = vehicleData[0];
-                        string licensePlate = vehicleData[1];
+                        string licenseNumber = vehicleData[1];
                         string modelName = vehicleData[2];
                         string ownerName = vehicleData[6];
                         string ownerPhone = vehicleData[7];
-                        bool isExists = m_GarageManager.AddVehicle(licensePlate, modelName, vehicleType, ownerName, ownerPhone, out Vehicle newVehicle);
+                        bool isExists = m_GarageManager.AddVehicle(licenseNumber, modelName, vehicleType, ownerName, ownerPhone, out Vehicle newVehicle);
 
                         if (!isExists && newVehicle != null)
                         {
@@ -98,7 +126,6 @@ namespace Ex03.ConsoleUI
                             vehicleParametersAnswer.Add("Energy Percentage", vehicleData[3].Trim());
                             vehicleParametersAnswer.Add("Tire Model", vehicleData[4].Trim());
                             vehicleParametersAnswer.Add("Current Air Pressure", vehicleData[5].Trim());
-
                             int fileIndex = 8;
                             for (int i = 3; i < specificParametersKeys.Count; i++)
                             {
@@ -113,8 +140,8 @@ namespace Ex03.ConsoleUI
                         }
                         else//Vehicle already exists
                         {
-                            m_GarageManager.ChangeVehicleStatus(licensePlate, eVehicleStatus.InRepair);
-                            Console.WriteLine($"Vehicle '{licensePlate}' is already in garage. Status updated to In Repair.");
+                            m_GarageManager.ChangeVehicleStatus(licenseNumber, eVehicleStatus.InRepair);
+                            Console.WriteLine($"Vehicle '{licenseNumber}' is already in garage. Status updated to In Repair.");
                         }
                     }
                     catch (Exception ex)
@@ -138,15 +165,18 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("\nPlease provide the following specific details:");
             foreach (KeyValuePair<string, Type> requirement in requirements)
             {
-                Console.Write($"{requirement.Key}: ");
                 if (requirement.Value.IsEnum)
                 {
-                    string options = string.Join(", ", Enum.GetNames(requirement.Value));
-                    Console.Write($"({options}) ");
+                    string requestKeyMessage = $"Please select {requirement.Key}:";
+                    string chosenValue = getEnumSelection(requirement.Value, requestKeyMessage);
+                    answers.Add(requirement.Key, chosenValue);
                 }
-
-                string userInput = Console.ReadLine();
-                answers.Add(requirement.Key, userInput);
+                else
+                {
+                    Console.Write($"{requirement.Key}: ");
+                    string userInput = Console.ReadLine();
+                    answers.Add(requirement.Key, userInput);
+                }
             }
 
             i_NewVehicle.SetVehicleSpecificParameters(answers);
@@ -160,8 +190,8 @@ namespace Ex03.ConsoleUI
 
             if (isExists)
             {
-                Console.WriteLine("Vehicle already exists in the garage. Updating status to In Repair.");
                 m_GarageManager.ChangeVehicleStatus(licenseNumber, eVehicleStatus.InRepair);
+                Console.WriteLine($"Vehicle '{licenseNumber}' is already in garage. Status updated to In Repair.");
             }
             else//Create a new vehicle
             {
@@ -196,28 +226,24 @@ namespace Ex03.ConsoleUI
             eVehicleStatus? filterStatus = null;
             if (filterResponse == "yes")
             {
-                Console.WriteLine("Select the status to filter by:");
-                string[] statusOptions = Enum.GetNames(typeof(eVehicleStatus));
-                for (int i = 0; i < statusOptions.Length; i++)
-                {
-                    Console.WriteLine($"{i + 1}. {statusOptions[i]}");
-                }
-
-                if (int.TryParse(Console.ReadLine(), out int choice) && choice >= 1 && choice <= statusOptions.Length)
-                {
-                    filterStatus = (eVehicleStatus)Enum.Parse(typeof(eVehicleStatus), statusOptions[choice - 1]);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid selection. No filter will be applied.");
-                }
+                string selectedStatus = getEnumSelection(typeof(eVehicleStatus), "Select the vehicle status to filter by:");
+                filterStatus = (eVehicleStatus)Enum.Parse(typeof(eVehicleStatus), selectedStatus);
+            }
+            else//user chose not to filter
+            {
+                Console.WriteLine("Displaying all vehicles without filtering.");
             }
 
             List<string> licenseNumbers = m_GarageManager.GetLicenseNumbers(filterStatus);
-            if (licenseNumbers.Count > 0)
+            printFoundVehicles(licenseNumbers);
+        } 
+
+        private void printFoundVehicles(List<string> i_Licenses)
+        {
+            if (i_Licenses.Count > 0)
             {
                 Console.WriteLine("Vehicles in the garage:");
-                foreach (string license in licenseNumbers)
+                foreach (string license in i_Licenses)
                 {
                     Console.WriteLine(license);
                 }
@@ -232,30 +258,18 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine("Please enter the license plate:");
             string license = Console.ReadLine();
+            eVehicleStatus newStatus = eVehicleStatus.InRepair;
 
-            Console.WriteLine("Select the new status:");
-            string[] statusOptions = Enum.GetNames(typeof(eVehicleStatus));
-            for (int i = 0; i < statusOptions.Length; i++)
+            string selectedStatus = getEnumSelection(typeof(eVehicleStatus), "Select the new vehicle status:");
+            newStatus = (eVehicleStatus)Enum.Parse(typeof(eVehicleStatus), selectedStatus);
+            try
             {
-                Console.WriteLine($"{i + 1}. {statusOptions[i]}");
+                m_GarageManager.ChangeVehicleStatus(license, newStatus);
+                Console.WriteLine("Vehicle status updated successfully.");
             }
-
-            if (int.TryParse(Console.ReadLine(), out int choice) && choice >= 1 && choice <= statusOptions.Length)
+            catch (Exception ex)
             {
-                try
-                {
-                    eVehicleStatus newStatus = (eVehicleStatus)Enum.Parse(typeof(eVehicleStatus), statusOptions[choice - 1]);
-                    m_GarageManager.ChangeVehicleStatus(license, newStatus);
-                    Console.WriteLine("Vehicle status updated successfully.");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error: {ex.Message}");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid selection. Please choose a number from the list.");
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
 
@@ -263,6 +277,7 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine("Please enter the license plate:");
             string license = Console.ReadLine();
+
             try
             {
                 m_GarageManager.InflateVehicleWheelsToMax(license);
@@ -278,21 +293,15 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine("Please enter the license plate:");
             string license = Console.ReadLine();
-            Console.WriteLine("Select the fuel type:");
-            string[] statusOptions = Enum.GetNames(typeof(eFuelType));
-            for (int i = 0; i < statusOptions.Length; i++)
-            {
-                Console.WriteLine($"{i + 1}. {statusOptions[i]}");
-            }
+            string statusInput = getEnumSelection(typeof(eFuelType), "Select the fuel type:");
+            eFuelType fuelType = (eFuelType)Enum.Parse(typeof(eFuelType), statusInput);
 
             Console.WriteLine("Enter the amount of fuel to add:");
-            if (int.TryParse(Console.ReadLine(), out int choice) && choice >= 1)
+            if (float.TryParse(Console.ReadLine(), out float choice) && choice >= 1)
             {
                 try
                 {
-                    eFuelType fuelType = (eFuelType)Enum.Parse(typeof(eFuelType), statusOptions[choice - 1]);
-                    float amountToAdd = float.Parse(Console.ReadLine());
-                    m_GarageManager.RefuelVehicle(license, fuelType, amountToAdd);
+                    m_GarageManager.RefuelVehicle(license, fuelType, choice);
                     Console.WriteLine("Vehicle refueled successfully.");
                 }
                 catch (Exception ex)
@@ -312,6 +321,7 @@ namespace Ex03.ConsoleUI
             string license = Console.ReadLine();
             Console.WriteLine("Enter the amount of energy to add:");
             string energyAmount = Console.ReadLine();
+
             if (float.TryParse(energyAmount, out float choice) && choice >= 1)
             {
                 try
@@ -335,8 +345,10 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine("Please enter the license plate:");
             string license = Console.ReadLine();
+
             try
             {
+                Console.Clear();
                 Console.WriteLine(m_GarageManager.GetVehicleInfo(license));
             }
             catch (Exception ex)

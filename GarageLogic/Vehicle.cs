@@ -45,7 +45,7 @@ namespace Ex03.GarageLogic
 	        }
 	    }
 
-	    public Vehicle(string i_ModelName, string i_LicenseNumber)
+	    public Vehicle(string i_LicenseNumber, string i_ModelName)
 	    {
 	        m_ModelName = i_ModelName;
 	        m_LicenseNumber = i_LicenseNumber;
@@ -57,7 +57,7 @@ namespace Ex03.GarageLogic
 	        foreach (Wheel wheel in m_Wheels)
 	        {
 	            float airToAdd = wheel.MaxAirPressure - wheel.CurrentAirPressure;
-	            if(airToAdd > 0)
+	            if (airToAdd > 0)
 	            {
 	                wheel.Inflate(airToAdd);
 	            }
@@ -70,7 +70,6 @@ namespace Ex03.GarageLogic
 
 	        vehicleInfo.AppendLine($"License Number: {m_LicenseNumber}");
 	        vehicleInfo.AppendLine($"Model Name: {m_ModelName}");
-	        vehicleInfo.AppendLine("Engine Info:");
 	        vehicleInfo.AppendLine(m_Engine.ToString());
 	        vehicleInfo.AppendLine("Wheels Info:");
 	        int wheelIndex = 1;
