@@ -49,7 +49,7 @@ namespace Ex03.GarageLogic
 	    {
 	        StringBuilder motorcycleInfo = new StringBuilder();
 
-	        motorcycleInfo.AppendLine(base.ToString());
+	        motorcycleInfo.Append(base.ToString());
 	        motorcycleInfo.AppendLine($"License Type: {m_LicenseType}");
 	        motorcycleInfo.AppendLine($"Engine Volume: {m_EngineVolume} cc");
 
