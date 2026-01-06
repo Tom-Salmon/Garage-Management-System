@@ -52,10 +52,10 @@ namespace Ex03.ConsoleUI
                         consoleUI.inflateAllWheelsToMax();
                         break;
                     case "6":
-                        consoleUI.RefuelVehicle();
+                        consoleUI.refuelVehicle();
                         break;
                     case "7":
-                        consoleUI.RechargeVehicle();
+                        consoleUI.rechargeVehicle();
                         break;
                     case "8":
                         consoleUI.printFullVehicleDetails();
@@ -289,7 +289,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void RefuelVehicle()
+        private void refuelVehicle()
         {
             Console.WriteLine("Please enter the license plate:");
             string license = Console.ReadLine();
@@ -297,7 +297,7 @@ namespace Ex03.ConsoleUI
             eFuelType fuelType = (eFuelType)Enum.Parse(typeof(eFuelType), statusInput);
 
             Console.WriteLine("Enter the amount of fuel to add:");
-            if (float.TryParse(Console.ReadLine(), out float choice) && choice >= 1)
+            if (float.TryParse(Console.ReadLine(), out float choice) && choice > 0)
             {
                 try
                 {
@@ -315,14 +315,14 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void RechargeVehicle()
+        private void rechargeVehicle()
         {
             Console.WriteLine("Please enter the license plate:");
             string license = Console.ReadLine();
             Console.WriteLine("Enter the amount of energy to add:");
             string energyAmount = Console.ReadLine();
 
-            if (float.TryParse(energyAmount, out float choice) && choice >= 1)
+            if (float.TryParse(energyAmount, out float choice) && choice > 0)
             {
                 try
                 {
